@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">自由香港楷書</string>
+    <string name="ui_okay">確定</string>
+    <string name="ui_cancel">取消</string>
+    <string name="ui_share">分享</string>
+    <string name="ui_error">錯誤</string>
+
+    <string name="title_activity_rate_us">為我們評分</string>
+
+</resources>

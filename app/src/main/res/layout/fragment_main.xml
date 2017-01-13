@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/grey100"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <com.devspark.robototextview.widget.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:text="自由香港楷書顯示字樣"
+                android:textSize="20sp"
+                app:fontFamily="roboto"
+                app:textWeight="bold"
+                tools:ignore="MissingPrefix"/>
+
+            <com.devspark.robototextview.widget.RobotoTextView
+                android:id="@+id/resultTv"
+                fontPath="fonts/freehkkai.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.2"
+                android:text="歡迎試打自由香港楷書\n告 房 電 滋 妙"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                tools:ignore="MissingPrefix"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/primary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.devspark.robototextview.widget.RobotoButton
+                android:id="@+id/fontSizeIncreaseBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="字體 +"
+                android:textSize="14sp"
+                android:theme="@style/GrayButton"/>
+
+            <com.devspark.robototextview.widget.RobotoButton
+                android:id="@+id/fontSizeDecreaseBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="字體 -"
+                android:textSize="14sp"
+                android:theme="@style/GrayButton"/>
+
+            <com.devspark.robototextview.widget.RobotoButton
+                android:id="@+id/helpBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="說明"
+                android:textSize="14sp"
+                android:theme="@style/MainButton"/>
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LargeInputContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/inputEt"
+                style="@style/EditTextSingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:hint="按這裡輸入文字"
+                android:inputType="textMultiLine"
+                android:maxLines="4"
+                android:minLines="1"
+                android:textSize="20sp"/>
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+</LinearLayout>
