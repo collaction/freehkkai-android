@@ -2,7 +2,7 @@
 
 ##About
 
-![alt](https://lh3.googleusercontent.com/NxEeWkl7-7akvewL7ZdvBZWB4Le3nvAoIDclxaTn9C5uGKe1dEKeP9cM_P1mQZg1KpcH)
+![alt](https://lh3.googleusercontent.com/LEYqJOGVLztfNKcGqrM8_l9bam0HN1VsecRhZbaOHe-7eqztnp962qfWYPxyBVweCtU)
 
 我們平時電腦使用的字型為台灣字型，但香港教育局對中文字有一套建議，不論在筆劃及寫法上，對比台灣字型都有一定程度的差異。八十年代已有《香港常用字字形表》作規範，部份字跟我們慣常的寫法，甚至電腦輸入法都有出入，可是教育局要求小學教科書要用楷書印製，卻又沒有開放合乎規範的楷書字體予大眾，因此老師們根據《常用字字形表》教授中文字，而家長使用台灣電腦字型來教中文字，小朋友的功課因而經常被老師送上「大交叉」。
 
