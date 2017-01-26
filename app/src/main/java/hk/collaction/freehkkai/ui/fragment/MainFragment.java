@@ -3,8 +3,10 @@ package hk.collaction.freehkkai.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ShareCompat;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
@@ -41,6 +43,8 @@ public class MainFragment extends BaseFragment {
 
 	@BindView(R.id.inputEt)
 	EditText inputEt;
+
+	private int sizeChange = 8;
 
 	public MainFragment() {
 		// Required empty public constructor
@@ -84,7 +88,7 @@ public class MainFragment extends BaseFragment {
 	public void onClickFontSizeIncrease() {
 		float size = C.convertPixelsToSp(resultTv.getTextSize(), mContext);
 		if (size < 200) {
-			resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size + 4);
+			resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size + sizeChange);
 		}
 	}
 
@@ -92,7 +96,7 @@ public class MainFragment extends BaseFragment {
 	public void onClickFontSizeDecrease() {
 		float size = C.convertPixelsToSp(resultTv.getTextSize(), mContext);
 		if (size > 16) {
-			resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size - 4);
+			resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size - sizeChange);
 		}
 	}
 
@@ -103,9 +107,10 @@ public class MainFragment extends BaseFragment {
 		View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_help, null);
 
 		Spanned result;
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 			result = Html.fromHtml(readHelpHtml(), Html.FROM_HTML_MODE_LEGACY);
 		} else {
+			//noinspection deprecation
 			result = Html.fromHtml(readHelpHtml());
 		}
 		TextView tv = ((TextView) view.findViewById(R.id.helpTv));
@@ -113,7 +118,7 @@ public class MainFragment extends BaseFragment {
 		tv.setMovementMethod(LinkMovementMethod.getInstance());
 
 		MaterialDialog.Builder dialog = new MaterialDialog.Builder(mContext)
-				.title("自由香港字型 Android App")
+				.title("自由香港楷書 Android App")
 				.customView(view, true)
 				.onPositive(new MaterialDialog.SingleButtonCallback() {
 					@Override
@@ -123,8 +128,28 @@ public class MainFragment extends BaseFragment {
 						startActivity(intent);
 					}
 				})
+				.onNeutral(new MaterialDialog.SingleButtonCallback() {
+					@Override
+					public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+						ShareCompat.IntentBuilder
+								.from(mContext)
+								.setText("下載「自由香港楷書」程式，就可以查詢支援超過 4700 個香港教育局楷書參考寫法，解決因為「電腦輸入法」而令學生 / 家長 / 教師混淆而寫錯字的問題。\n\n" + "https://play.google.com/store/apps/details?id=" + mContext.getPackageName())
+								.setType("text/plain")
+								.setChooserTitle("選擇程式")
+								.startChooser();
+					}
+				})
+				.onNegative(new MaterialDialog.SingleButtonCallback() {
+					@Override
+					public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+						Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + mContext.getPackageName());
+						Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+						startActivity(intent);
+					}
+				})
 				.positiveText("了解更多")
-				.negativeText(R.string.ui_okay);
+				.neutralText("分享程式")
+				.negativeText("評分");
 		dialog.show();
 	}
 
