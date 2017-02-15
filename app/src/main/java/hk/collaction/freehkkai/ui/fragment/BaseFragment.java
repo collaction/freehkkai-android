@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 public class BaseFragment extends Fragment {
 
 	protected Activity mContext;
+	protected final int PERMISSION_REQUEST_CODE = 100;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

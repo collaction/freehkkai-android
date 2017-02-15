@@ -63,9 +63,11 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/fontSizeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <com.devspark.robototextview.widget.RobotoButton
                 android:id="@+id/fontSizeIncreaseBtn"
@@ -86,6 +88,32 @@
                 android:text="字體 -"
                 android:textSize="14sp"
                 android:theme="@style/GrayButton"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.devspark.robototextview.widget.RobotoButton
+                android:id="@+id/fontSizeToggleBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="調整字體"
+                android:textSize="14sp"
+                android:theme="@style/MainButton"/>
+
+            <com.devspark.robototextview.widget.RobotoButton
+                android:id="@+id/screenCapBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="分享截圖"
+                android:textSize="14sp"
+                android:theme="@style/MainButton"/>
 
             <com.devspark.robototextview.widget.RobotoButton
                 android:id="@+id/helpBtn"
@@ -93,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:text="分享及說明"
+                android:text="說明"
                 android:textSize="14sp"
                 android:theme="@style/MainButton"/>
         </LinearLayout>
