@@ -10,13 +10,19 @@ android {
         applicationId "hk.collaction.freehkkai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 7
-        versionName "0.1.5beta"
+        versionCode 1160160 // 0 = release, 1 = beta
+        versionName "0.1.6"
         multiDexEnabled true
     }
 
     buildTypes {
         debug {
+            buildConfigField "String", "ADMOB_KEY", "\"" + getSecretKey("ADMOB_KEY") + "\""
+            buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
+        }
+        staging {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             buildConfigField "String", "ADMOB_KEY", "\"" + getSecretKey("ADMOB_KEY") + "\""
             buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
         }
@@ -64,7 +70,7 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     // Google Play Services
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:10.2.0'
 
     // Roboto TextView
     compile 'com.github.johnkil.android-robototextview:robototextview:2.5.0'

@@ -43,6 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hk.collaction.freehkkai.C;
+import hk.collaction.freehkkai.Config;
 import hk.collaction.freehkkai.R;
 
 /**
@@ -58,6 +59,8 @@ public class MainFragment extends BaseFragment {
 	EditText inputEt;
 	@BindView(R.id.fontSizeContainer)
 	LinearLayout fontSizeContainer;
+	@BindView(R.id.llView)
+	LinearLayout llView;
 
 	private int sizeChange = 8;
 
@@ -78,7 +81,6 @@ public class MainFragment extends BaseFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		inputEt.addTextChangedListener(new TextWatcher() {
-
 			@Override
 			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
 			}
@@ -92,6 +94,23 @@ public class MainFragment extends BaseFragment {
 				resultTv.setText(s.toString());
 			}
 		});
+
+		if (Config.VERSION.isBeta()) {
+			MaterialDialog.Builder dialog = new MaterialDialog.Builder(mContext)
+					.title("自由香港楷書 Android App")
+					.content("這是 Google Play 測試人員計劃版本，如發現問題請聯絡我們。\n\n電郵地址：hello@collaction.hk")
+					.onNegative(new MaterialDialog.SingleButtonCallback() {
+						@Override
+						public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+							Uri uri = Uri.parse("https://play.google.com/apps/testing/hk.collaction.freehkkai");
+							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+							startActivity(intent);
+						}
+					})
+					.positiveText("確定")
+					.negativeText("退出測試人員計劃");
+			dialog.show();
+		}
 	}
 
 	@OnClick(R.id.scrollView)
@@ -137,9 +156,11 @@ public class MainFragment extends BaseFragment {
 					folder.mkdir();
 				}
 
-				String mPath = folderPath + "/FreeHKKai_" + now + ".jpg";
+				String mPath = folderPath + "/FreeHKKai_" + now + ".jpeg";
 
-				View v1 = mContext.getWindow().getDecorView().getRootView();
+				// Capture the layout rather then over screen
+				// View v1 = mContext.getWindow().getDecorView().getRootView();
+				View v1 = llView;
 				v1.setDrawingCacheEnabled(true);
 				Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
 				v1.setDrawingCacheEnabled(false);
@@ -161,7 +182,7 @@ public class MainFragment extends BaseFragment {
 				startActivity(Intent.createChooser(intent, "選擇程式"));
 			} catch (Exception e) {
 				e.printStackTrace();
-				Toast.makeText(mContext, "無法截圖", Toast.LENGTH_LONG).show();
+				Toast.makeText(mContext, "此設備無法截圖，請報告此問題讓我們改進。", Toast.LENGTH_LONG).show();
 			}
 		} else {
 			requestPermissions(new String[]{PERMISSION_NAME}, PERMISSION_REQUEST_CODE);
