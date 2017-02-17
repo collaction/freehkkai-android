@@ -31,3 +31,8 @@ Feel free to contribute with pull requests to this project if you have any andro
 Copyright 2017 Collaction. 
 
 自由香港楷書 for Android is an Open Source project covered by the GNU General Public License version 3.
+
+##Changelog
+
+### 0.1.6 (2017-02-17)
+增加截圖分享功能
