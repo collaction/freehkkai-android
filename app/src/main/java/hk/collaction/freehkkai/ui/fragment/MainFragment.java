@@ -96,20 +96,7 @@ public class MainFragment extends BaseFragment {
 		});
 
 		if (Config.VERSION.isBeta()) {
-			MaterialDialog.Builder dialog = new MaterialDialog.Builder(mContext)
-					.title("自由香港楷書 Android App")
-					.content("這是 Google Play 測試人員計劃版本，如發現問題請聯絡我們。\n\n電郵地址：hello@collaction.hk")
-					.onNegative(new MaterialDialog.SingleButtonCallback() {
-						@Override
-						public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-							Uri uri = Uri.parse("https://play.google.com/apps/testing/hk.collaction.freehkkai");
-							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-							startActivity(intent);
-						}
-					})
-					.positiveText("確定")
-					.negativeText("退出測試人員計劃");
-			dialog.show();
+			resultTv.setText("（測試人員版本）\n" + resultTv.getText());
 		}
 	}
 

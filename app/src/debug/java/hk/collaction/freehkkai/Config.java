@@ -10,7 +10,6 @@ public enum Config {
 		this.isBeta = isBeta;
 	}
 
-
 	public boolean isBeta() {
 		return isBeta;
 	}
