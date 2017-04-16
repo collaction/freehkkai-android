@@ -23,6 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -43,12 +46,16 @@ public class MainFragment extends BaseFragment {
 
 	protected final String PERMISSION_NAME = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+	@BindView(R.id.titleTv)
+	TextView titleTv;
 	@BindView(R.id.resultTv)
 	TextView resultTv;
 	@BindView(R.id.inputEt)
 	EditText inputEt;
 	@BindView(R.id.fontSizeContainer)
 	LinearLayout fontSizeContainer;
+	@BindView(R.id.buttonContainer)
+	LinearLayout buttonContainer;
 	@BindView(R.id.llView)
 	LinearLayout llView;
 
@@ -84,6 +91,19 @@ public class MainFragment extends BaseFragment {
 				resultTv.setText(s.toString());
 			}
 		});
+
+		KeyboardVisibilityEvent.setEventListener(
+				getActivity(),
+				new KeyboardVisibilityEventListener() {
+					@Override
+					public void onVisibilityChanged(boolean isOpen) {
+						if (isOpen) {
+							buttonContainer.setVisibility(View.GONE);
+						} else {
+							buttonContainer.setVisibility(View.VISIBLE);
+						}
+					}
+				});
 
 		if (Config.VERSION.isBeta()) {
 			resultTv.setText("（測試人員版本）\n" + resultTv.getText());

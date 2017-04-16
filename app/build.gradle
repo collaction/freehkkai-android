@@ -81,4 +81,7 @@ dependencies {
 
     // Material Dialog
     compile 'com.afollestad.material-dialogs:core:0.9.2.2'
+
+    // Keyboard Visibility Event
+    compile 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
 }
