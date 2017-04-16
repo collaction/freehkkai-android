@@ -1,6 +1,6 @@
 # 自由香港楷書
 
-##About
+## About
 
 ![alt](https://lh3.googleusercontent.com/-rFXzx4KrMF6MZ4Z4nfhIBxGlQ-nTzpMKFwrGiLR-raVliVjR3R4rs2g6i8k4RiGl50)
 
@@ -15,24 +15,26 @@
 電腦用字型下載：
 https://freehkfonts.opensource.hk/download/
 
-Collaction 項目頁面：
-https://www.collaction.hk/s/freehkfonts/
+更多 Collaction 開源程式：
+https://www.collaction.hk/s/collactionopensource/
 
 自由香港字型網站：
 https://freehkfonts.opensource.hk/
 
-Facebook Page：
-https://www.facebook.com/freefonthk
-
-##Development
+## Development
 Feel free to contribute with pull requests to this project if you have any android specific improvements in mind.
 
-##License
-Copyright 2017 Collaction. 
+## License
+Copyright 2017 Collaction Team. 
 
 自由香港楷書 for Android is an Open Source project covered by the GNU General Public License version 3.
 
-##Changelog
+## Changelog
+
+### 0.1.7 (2017-04-16)
+* 改善程式穩定
+* 減少程式容量
+* 調整使用者界面
 
 ### 0.1.6 (2017-02-17)
-增加截圖分享功能
+* 增加截圖分享功能

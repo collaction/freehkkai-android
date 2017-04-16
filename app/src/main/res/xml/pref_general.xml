@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="設定">
+    <PreferenceCategory android:title="製作團隊">
+        <Preference
+            android:key="pref_collaction"
+            android:summary="此程式由「Collaction 小隊」製作，並以 GPL 3.0 釋出原始碼。"
+            android:title="Collaction 小隊"/>
+
+        <Preference
+            android:key="pref_hkfreekai"
+            android:summary="此程式字型由「自由香港字型」製作，以「共享創意署名4.0 國際授權條款」釋出字型檔案。"
+            android:title="自由香港字型"/>
+
+        <Preference
+            android:summary="V1.02"
+            android:title="字型檔案版本"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="關於">
+        <Preference
+            android:key="pref_rate"
+            android:summary="⭐️⭐️⭐️⭐️⭐️"
+            android:title="給予評分"/>
+
+        <Preference
+            android:key="pref_share"
+            android:summary="分享給你身邊的朋友吧！"
+            android:title="分享此程式"/>
+
+        <Preference
+            android:key="pref_author"
+            android:summary="查看其他 Collaction 小隊開發的程式。"
+            android:title="更多程式"/>
+
+        <Preference
+            android:key="pref_report"
+            android:summary="糟了，我們要找滅蟲公司。🐛️"
+            android:title="回報問題"/>
+
+        <Preference
+            android:key="pref_version"
+            android:title="版本編號"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

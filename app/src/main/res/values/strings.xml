@@ -10,5 +10,6 @@
     <string name="title_activity_rate_us">為我們評分</string>
     <string name="dialog_permission_denied_posbtn">設定 »</string>
     <string name="dialog_permission_denied_message">請給予應用程式相關權限，這樣才能儲存螢幕圖片並選擇分享對象。</string>
+    <string name="title_activity_settings">設定</string>
 
 </resources>
