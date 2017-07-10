@@ -44,7 +44,7 @@ public class Util {
 		try {
 			if (!PreferenceManager.getDefaultSharedPreferences(c).getBoolean(Util.PREF_IAP, false)) {
 				adView = new AdView(c);
-				adView.setAdUnitId(BuildConfig.ADMOB_KEY);
+				adView.setAdUnitId(BuildConfig.ADMOB_BANNER_ID);
 				adView.setAdSize(AdSize.BANNER);
 				adLayout.addView(adView);
 

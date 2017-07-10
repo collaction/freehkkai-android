@@ -21,7 +21,6 @@
     <PreferenceCategory android:title="關於">
         <Preference
             android:key="pref_rate"
-            android:summary="⭐️⭐️⭐️⭐️⭐️"
             android:title="給予評分"/>
 
         <Preference
@@ -36,7 +35,7 @@
 
         <Preference
             android:key="pref_report"
-            android:summary="糟了，我們要找滅蟲公司。🐛️"
+            android:summary="糟了，我們要找滅蟲公司。"
             android:title="回報問題"/>
 
         <Preference

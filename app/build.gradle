@@ -4,34 +4,34 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "hk.collaction.freehkkai"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1160170 // 0 = release, 1 = beta
-        versionName "0.1.7"
+        versionCode 1160200 // 0 = release, 1 = beta
+        versionName "0.2.0"
         multiDexEnabled true
     }
 
     buildTypes {
         debug {
-            buildConfigField "String", "ADMOB_KEY", "\"" + getSecretKey("ADMOB_KEY") + "\""
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
             buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
         }
         staging {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "ADMOB_KEY", "\"" + getSecretKey("ADMOB_KEY") + "\""
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
             buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
         }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "ADMOB_KEY", "\"" + getSecretKey("ADMOB_KEY") + "\""
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
             buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
         }
     }
@@ -70,7 +70,7 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     // Google Play Services
-    compile 'com.google.android.gms:play-services-ads:10.2.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.1'
 
     // Roboto TextView
     compile 'com.github.johnkil.android-robototextview:robototextview:2.5.0'
