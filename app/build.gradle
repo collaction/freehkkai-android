@@ -18,21 +18,21 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
-            buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
+            buildConfigField "String[]", "DEVICE_ID", getSecretKey("DEVICE_ID")
         }
         staging {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
-            buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
+            buildConfigField "String[]", "DEVICE_ID", getSecretKey("DEVICE_ID") + "\""
         }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
-            buildConfigField "String", "DEVICE_ID", "\"" + getSecretKey("DEVICE_ID") + "\""
+            buildConfigField "String[]", "DEVICE_ID", getSecretKey("DEVICE_ID")
         }
     }
 
@@ -67,7 +67,7 @@ dependencies {
     compile 'com.android.support:preference-v14:25.3.1'
 
     // Calligraphy
-    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
 
     // Google Play Services
     compile 'com.google.android.gms:play-services-ads:11.0.1'

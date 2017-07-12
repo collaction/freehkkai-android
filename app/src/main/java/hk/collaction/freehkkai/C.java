@@ -1,8 +1,11 @@
 package hk.collaction.freehkkai;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
@@ -40,5 +43,24 @@ public class C extends Util {
 					}
 				});
 		dialog.show();
+	}
+
+	public static String getCurrentFontName(Context mContext) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+		String fontPath = settings.getString("pref_font", "fonts/freehkkai_4700.ttf");
+
+		return getCurrentFontName(mContext, fontPath);
+	}
+
+	public static String getCurrentFontName(Context mContext, String fontPath) {
+		String[] fontVersionArray = mContext.getResources().getStringArray(R.array.font_version_array);
+		String fontName = fontVersionArray[0];
+		switch (fontPath) {
+			case "fonts/freehkkai_extended.ttf":
+				fontName = fontVersionArray[1];
+				break;
+		}
+
+		return fontName;
 	}
 }

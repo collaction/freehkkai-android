@@ -30,10 +30,10 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <com.devspark.robototextview.widget.RobotoTextView
+                android:id="@+id/titleTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:id="@+id/titleTv"
                 android:text="自由香港楷書顯示字樣"
                 android:textSize="20sp"
                 app:fontFamily="roboto"
@@ -42,7 +42,6 @@
 
             <com.devspark.robototextview.widget.RobotoTextView
                 android:id="@+id/resultTv"
-                fontPath="fonts/freehkkai.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.2"

@@ -3,12 +3,15 @@ package hk.collaction.freehkkai.ui.fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
@@ -38,9 +41,10 @@ import hk.collaction.freehkkai.C;
 import hk.collaction.freehkkai.Config;
 import hk.collaction.freehkkai.R;
 import hk.collaction.freehkkai.ui.activity.SettingsActivity;
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 /**
- * Created by himphen on 21/5/16.
+ * @author Himphen
  */
 public class MainFragment extends BaseFragment {
 
@@ -60,6 +64,7 @@ public class MainFragment extends BaseFragment {
 	LinearLayout llView;
 
 	private int sizeChange = 8;
+	private SharedPreferences settings;
 
 	public MainFragment() {
 		// Required empty public constructor
@@ -77,6 +82,9 @@ public class MainFragment extends BaseFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+
 		inputEt.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
@@ -211,6 +219,25 @@ public class MainFragment extends BaseFragment {
 			} else {
 				C.openErrorPermissionDialog(mContext);
 			}
+		}
+	}
+
+	public void onResume() {
+		super.onResume();
+
+		String fontPath = settings.getString("pref_font", "fonts/freehkkai_4700.ttf");
+		CalligraphyUtils.applyFontToTextView(mContext, resultTv, fontPath);
+
+		String fontName = C.getCurrentFontName(mContext, fontPath);
+
+		boolean isShowAlert = settings.getBoolean("pref_font_version_alert", true);
+		if (isShowAlert) {
+			Snackbar.make(getView(), "你正在使用" + fontName, Snackbar.LENGTH_LONG).setAction("設定", new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					onClickHelp();
+				}
+			}).show();
 		}
 	}
 }

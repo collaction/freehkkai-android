@@ -50,7 +50,11 @@ public class Util {
 
 				AdRequest.Builder adRequest = new AdRequest.Builder();
 				adRequest.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
-				adRequest.addTestDevice(BuildConfig.DEVICE_ID);
+
+				for (String id : BuildConfig.DEVICE_ID) {
+					adRequest.addTestDevice(id);
+				}
+
 				adView.loadAd(adRequest.build());
 			}
 		} catch (Exception e) {

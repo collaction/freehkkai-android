@@ -2,6 +2,18 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="設定">
+    <PreferenceCategory android:title="程式設定">
+        <Preference
+            android:key="pref_font_version"
+            android:title="切換字型檔案版本"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_font_version_alert"
+            android:summary="當進入程式時，會顯示你正在使用的字型檔案版本。"
+            android:title="顯示版本提示"/>
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="製作團隊">
         <Preference
             android:key="pref_collaction"
@@ -12,10 +24,6 @@
             android:key="pref_hkfreekai"
             android:summary="此程式字型由「自由香港字型」製作，以「共享創意署名4.0 國際授權條款」釋出字型檔案。"
             android:title="自由香港字型"/>
-
-        <Preference
-            android:summary="V1.02"
-            android:title="字型檔案版本"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="關於">

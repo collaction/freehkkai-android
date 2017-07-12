@@ -1,17 +1,24 @@
 package hk.collaction.freehkkai.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.preference.Preference;
 import android.view.View;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import hk.collaction.freehkkai.C;
 import hk.collaction.freehkkai.R;
 
 
 public class SettingsFragment extends BasePreferenceFragment {
+
+	private SharedPreferences settings;
+	private Preference prefFontVersion;
 
 	public static SettingsFragment newInstance() {
 		return new SettingsFragment();
@@ -26,6 +33,8 @@ public class SettingsFragment extends BasePreferenceFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 
 		/* Set version */
 		Preference prefVersion = findPreference("pref_version");
@@ -103,5 +112,47 @@ public class SettingsFragment extends BasePreferenceFragment {
 				return false;
 			}
 		});
+
+		prefFontVersion = findPreference("pref_font_version");
+		prefFontVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				String fontVersion = settings.getString("pref_font_version", "fonts/freehkkai_4700.ttf");
+				int a = 0;
+				switch (fontVersion) {
+					case "fonts/freehkkai_extended.ttf":
+						a = 1;
+						break;
+				}
+
+				MaterialDialog.Builder dialog = new MaterialDialog.Builder(mContext)
+						.title("切換字型檔案版本")
+						.items(R.array.font_version_array)
+						.itemsCallbackSingleChoice(a, new MaterialDialog.ListCallbackSingleChoice() {
+							@Override
+							public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+								switch (which) {
+									case 0:
+										settings.edit().putString("pref_font_version", "fonts/freehkkai_4700.ttf").apply();
+										break;
+									case 1:
+										settings.edit().putString("pref_font_version", "fonts/freehkkai_extended.ttf").apply();
+										break;
+								}
+								setFontVersionSummary();
+								return false;
+							}
+						})
+						.negativeText(R.string.ui_cancel);
+				dialog.show();
+
+				return false;
+			}
+		});
+		setFontVersionSummary();
+	}
+
+	void setFontVersionSummary() {
+		prefFontVersion.setSummary(C.getCurrentFontName(mContext));
 	}
 }
