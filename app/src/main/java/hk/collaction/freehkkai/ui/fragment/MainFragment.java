@@ -1,6 +1,7 @@
 package hk.collaction.freehkkai.ui.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,6 +50,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 public class MainFragment extends BaseFragment {
 
 	protected final String PERMISSION_NAME = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+	protected static final int REQUEST_SETTINGS = 1000;
 
 	@BindView(R.id.titleTv)
 	TextView titleTv;
@@ -84,7 +86,7 @@ public class MainFragment extends BaseFragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-
+		updateFontPath();
 		inputEt.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
@@ -199,7 +201,7 @@ public class MainFragment extends BaseFragment {
 		hideKeyboard();
 
 		Intent intent = new Intent().setClass(mContext, SettingsActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, REQUEST_SETTINGS);
 	}
 
 	private void hideKeyboard() {
@@ -222,15 +224,13 @@ public class MainFragment extends BaseFragment {
 		}
 	}
 
-	public void onResume() {
-		super.onResume();
-
-		String fontPath = settings.getString("pref_font", "fonts/freehkkai_4700.ttf");
+	private void updateFontPath() {
+		String fontPath = settings.getString(C.PREF_FONT_VERSION, "fonts/freehkkai_4700.ttf");
 		CalligraphyUtils.applyFontToTextView(mContext, resultTv, fontPath);
 
 		String fontName = C.getCurrentFontName(mContext, fontPath);
 
-		boolean isShowAlert = settings.getBoolean("pref_font_version_alert", true);
+		boolean isShowAlert = settings.getBoolean(C.PREF_FONT_VERSION_ALERT, true);
 		if (isShowAlert) {
 			Snackbar.make(getView(), "你正在使用" + fontName, Snackbar.LENGTH_LONG).setAction("設定", new View.OnClickListener() {
 				@Override
@@ -238,6 +238,17 @@ public class MainFragment extends BaseFragment {
 					onClickHelp();
 				}
 			}).show();
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == REQUEST_SETTINGS) {
+			if (resultCode == Activity.RESULT_OK) {
+				updateFontPath();
+			}
 		}
 	}
 }

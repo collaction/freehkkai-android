@@ -14,7 +14,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 public class C extends Util {
 	public static final String TAG = "TAG";
-
+	public static final String PREF_FONT_VERSION = "pref_font_version";
+	public static final String PREF_FONT_VERSION_ALERT = "pref_font_version_alert";
 
 	public static void openErrorPermissionDialog(final Activity activity) {
 		MaterialDialog.Builder dialog = new MaterialDialog.Builder(activity)
@@ -47,7 +48,7 @@ public class C extends Util {
 
 	public static String getCurrentFontName(Context mContext) {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		String fontPath = settings.getString("pref_font", "fonts/freehkkai_4700.ttf");
+		String fontPath = settings.getString(C.PREF_FONT_VERSION, "fonts/freehkkai_4700.ttf");
 
 		return getCurrentFontName(mContext, fontPath);
 	}

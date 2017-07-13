@@ -1,5 +1,6 @@
 package hk.collaction.freehkkai.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -7,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.preference.Preference;
+import android.util.Log;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -133,10 +135,10 @@ public class SettingsFragment extends BasePreferenceFragment {
 							public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
 								switch (which) {
 									case 0:
-										settings.edit().putString("pref_font_version", "fonts/freehkkai_4700.ttf").apply();
+										settings.edit().putString(C.PREF_FONT_VERSION, "fonts/freehkkai_4700.ttf").apply();
 										break;
 									case 1:
-										settings.edit().putString("pref_font_version", "fonts/freehkkai_extended.ttf").apply();
+										settings.edit().putString(C.PREF_FONT_VERSION, "fonts/freehkkai_extended.ttf").apply();
 										break;
 								}
 								setFontVersionSummary();
@@ -145,6 +147,8 @@ public class SettingsFragment extends BasePreferenceFragment {
 						})
 						.negativeText(R.string.ui_cancel);
 				dialog.show();
+
+				mContext.setResult(Activity.RESULT_OK);
 
 				return false;
 			}
