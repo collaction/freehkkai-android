@@ -13,8 +13,8 @@
     <string name="title_activity_settings">設定</string>
 
     <string-array name="font_version_array">
-        <item>教育局常用字字形表（4700 字）</item>
-        <item>增補版（7000 字）</item>
+        <item>參考常用字字型表（4700 字版）</item>
+        <item>香港常用增補版（7000 字版）</item>
     </string-array>
 
 </resources>
