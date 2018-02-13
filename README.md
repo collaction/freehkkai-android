@@ -25,11 +25,14 @@ https://freehkfonts.opensource.hk/
 Feel free to contribute with pull requests to this project if you have any android specific improvements in mind.
 
 ## License
-Copyright 2017 Collaction Team. 
+Copyright 2018 Collaction Team. 
 
 自由香港楷書 for Android is an Open Source project covered by the GNU General Public License version 3.
 
 ## Changelog
+
+### 0.2.1 (2018-02-13)
+* 年廿八大掃除
 
 ### 0.2.0 (2017-07-17)
 * 增加常用增補字 7000 字版

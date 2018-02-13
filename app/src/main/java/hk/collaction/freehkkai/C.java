@@ -1,6 +1,5 @@
 package hk.collaction.freehkkai;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +16,8 @@ public class C extends Util {
 	public static final String PREF_FONT_VERSION = "pref_font_version";
 	public static final String PREF_FONT_VERSION_ALERT = "pref_font_version_alert";
 
-	public static void openErrorPermissionDialog(final Activity activity) {
-		MaterialDialog.Builder dialog = new MaterialDialog.Builder(activity)
+	public static void openErrorPermissionDialog(Context mContext) {
+		MaterialDialog.Builder dialog = new MaterialDialog.Builder(mContext)
 				.customView(R.layout.dialog_permission, true)
 				.cancelable(false)
 				.negativeText(R.string.ui_cancel)
@@ -26,7 +25,7 @@ public class C extends Util {
 				.onNegative(new MaterialDialog.SingleButtonCallback() {
 					@Override
 					public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-						activity.finish();
+						dialog.getOwnerActivity().finish();
 					}
 				})
 				.onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -35,12 +34,12 @@ public class C extends Util {
 						Intent intent = new Intent();
 						intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
 						intent.addCategory(Intent.CATEGORY_DEFAULT);
-						intent.setData(Uri.parse("package:" + activity.getPackageName()));
+						intent.setData(Uri.parse("package:" + dialog.getOwnerActivity().getPackageName()));
 						intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 						intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-						activity.startActivity(intent);
-						activity.finish();
+						dialog.getOwnerActivity().startActivity(intent);
+						dialog.getOwnerActivity().finish();
 					}
 				});
 		dialog.show();
