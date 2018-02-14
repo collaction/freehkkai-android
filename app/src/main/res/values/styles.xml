@@ -53,7 +53,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-
     <!-- EditText -->
     <style name="InputContainer">
         <item name="android:padding">@dimen/input_margin</item>

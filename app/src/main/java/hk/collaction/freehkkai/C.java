@@ -1,5 +1,6 @@
 package hk.collaction.freehkkai;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +26,9 @@ public class C extends Util {
 				.onNegative(new MaterialDialog.SingleButtonCallback() {
 					@Override
 					public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-						dialog.getOwnerActivity().finish();
+						((Activity) dialog.getContext()).finish();
+
+
 					}
 				})
 				.onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -34,12 +37,12 @@ public class C extends Util {
 						Intent intent = new Intent();
 						intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
 						intent.addCategory(Intent.CATEGORY_DEFAULT);
-						intent.setData(Uri.parse("package:" + dialog.getOwnerActivity().getPackageName()));
+						intent.setData(Uri.parse("package:" + dialog.getContext().getPackageName()));
 						intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 						intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-						dialog.getOwnerActivity().startActivity(intent);
-						dialog.getOwnerActivity().finish();
+						dialog.getContext().startActivity(intent);
+						((Activity) dialog.getContext()).finish();
 					}
 				});
 		dialog.show();
