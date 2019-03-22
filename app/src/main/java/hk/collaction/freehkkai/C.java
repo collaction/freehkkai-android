@@ -12,8 +12,9 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
-public class C extends Util {
-	public static final String TAG = "TAG";
+import hk.collaction.freehkkai.helper.UtilHelper;
+
+public class C extends UtilHelper {
 	public static final String PREF_FONT_VERSION = "pref_font_version";
 	public static final String PREF_FONT_VERSION_ALERT = "pref_font_version_alert";
 
@@ -27,8 +28,6 @@ public class C extends Util {
 					@Override
 					public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 						((Activity) dialog.getContext()).finish();
-
-
 					}
 				})
 				.onPositive(new MaterialDialog.SingleButtonCallback() {

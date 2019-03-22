@@ -12,7 +12,9 @@ import android.support.v7.preference.Preference;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.AppUtils;
 
+import hk.collaction.freehkkai.BuildConfig;
 import hk.collaction.freehkkai.C;
 import hk.collaction.freehkkai.R;
 
@@ -40,24 +42,23 @@ public class SettingsFragment extends BasePreferenceFragment {
 
 		/* Set version */
 		Preference prefVersion = findPreference("pref_version");
-		prefVersion.setSummary(C.getCurrentVersionName(mContext));
+		prefVersion.setSummary(AppUtils.getAppVersionName());
 
 		findPreference("pref_report").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 
-				String meta = "Android Version: " + Build.VERSION.RELEASE + "\n";
-				meta += "SDK Level: " + String.valueOf(Build.VERSION.SDK_INT) + "\n";
-				meta += "Version: " + C.getCurrentVersionName(mContext) + "\n";
-				meta += "Brand: " + Build.BRAND + "\n";
-				meta += "Model: " + Build.MODEL + "\n\n";
-				meta += "我的訊息是如下\n\n";
+				String text = "Android Version: " + Build.VERSION.RELEASE + "\n";
+				text += "SDK Level: " + String.valueOf(Build.VERSION.SDK_INT) + "\n";
+				text += "Version: " + AppUtils.getAppVersionName() + "\n";
+				text += "Brand: " + Build.BRAND + "\n";
+				text += "Model: " + Build.MODEL + "\n\n\n";
 
 				intent.setType("message/rfc822");
-				intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"hello@collaction.hk"});
+				intent.putExtra(Intent.EXTRA_EMAIL, new String[]{BuildConfig.CONTACT_EMAIL});
 				intent.putExtra(Intent.EXTRA_SUBJECT, "自由香港楷書回報問題");
-				intent.putExtra(Intent.EXTRA_TEXT, meta);
+				intent.putExtra(Intent.EXTRA_TEXT, text);
 				startActivity(intent);
 				return false;
 			}
