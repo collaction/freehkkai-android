@@ -47,7 +47,7 @@
                     android:paddingEnd="4dp"
                     android:src="@drawable/baseline_volume_up_black_18"/>
 
-                <android.support.v7.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/titleTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/resultTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fontSizeIncreaseBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 android:textSize="14sp"
                 android:theme="@style/MainButton"/>
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fontSizeDecreaseBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -119,7 +119,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:id="@+id/fontSizeToggleBtn"
@@ -140,7 +141,7 @@
                         android:contentDescription="調整字體"
                         android:src="@drawable/baseline_text_fields_black_24"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="調整字體"
@@ -167,7 +168,7 @@
                         android:contentDescription="分享截圖"
                         android:src="@drawable/baseline_mobile_screen_share_black_24"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="分享截圖"
@@ -194,7 +195,7 @@
                         android:contentDescription="語音輸入"
                         android:src="@drawable/baseline_keyboard_voice_black_24"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="語音輸入"
@@ -221,7 +222,7 @@
                         android:contentDescription="設定"
                         android:src="@drawable/baseline_settings_black_24"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="設定"
@@ -231,7 +232,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             style="@style/LargeInputContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -248,7 +249,7 @@
                 android:maxLines="4"
                 android:minLines="1"
                 android:textSize="20sp"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
 </LinearLayout>

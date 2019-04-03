@@ -1,6 +1,7 @@
 package hk.collaction.freehkkai.ui.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -14,10 +15,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -32,6 +29,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.ConvertUtils;
+import com.google.android.material.snackbar.Snackbar;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -43,6 +41,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -57,9 +58,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
  */
 public class MainFragment extends BaseFragment {
 
-	protected final String PERMISSION_NAME = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-	protected static final int REQUEST_SETTINGS = 1000;
-	protected static final int REQUEST_SPEECH_TO_TEXT = 1001;
+	private final String PERMISSION_NAME = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+	private static final int REQUEST_SETTINGS = 1000;
+	private static final int REQUEST_SPEECH_TO_TEXT = 1001;
 
 	@BindView(R.id.titleTv)
 	TextView titleTv;
@@ -174,6 +175,8 @@ public class MainFragment extends BaseFragment {
 		}
 	}
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	@SuppressLint("SimpleDateFormat")
 	@OnClick(R.id.screenCapBtn)
 	void onClickScreenCap() {
 		hideKeyboard();

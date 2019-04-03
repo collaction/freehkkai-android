@@ -7,13 +7,13 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ViewConfiguration;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -24,6 +24,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Locale;
 
+import androidx.annotation.Nullable;
 import hk.collaction.freehkkai.BuildConfig;
 import hk.collaction.freehkkai.Environment;
 
@@ -107,6 +108,7 @@ public class UtilHelper {
 		String language = preferences.getString(UtilHelper.PREF_LANGUAGE, "");
 		String languageCountry = preferences.getString(UtilHelper.PREF_LANGUAGE_COUNTRY, "");
 
+		assert language != null;
 		if (language.equals("")) {
 			Locale locale;
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -139,6 +141,14 @@ public class UtilHelper {
 	public static void debug(String message) {
 		if (Environment.CONFIG.isDebug()) {
 			Log.d(DEBUG_TAG, message);
+		}
+	}
+
+	public static void logException(Exception e) {
+		if (Environment.CONFIG.isDebug()) {
+			e.printStackTrace();
+		} else {
+			Crashlytics.logException(e);
 		}
 	}
 }

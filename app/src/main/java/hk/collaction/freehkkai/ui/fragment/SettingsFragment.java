@@ -7,13 +7,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.Preference;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.AppUtils;
 
+import androidx.annotation.NonNull;
+import androidx.preference.Preference;
 import hk.collaction.freehkkai.BuildConfig;
 import hk.collaction.freehkkai.C;
 import hk.collaction.freehkkai.R;
@@ -157,7 +157,7 @@ public class SettingsFragment extends BasePreferenceFragment {
 		setFontVersionSummary();
 	}
 
-	void setFontVersionSummary() {
+	private void setFontVersionSummary() {
 		prefFontVersion.setSummary(C.getCurrentFontName(mContext));
 	}
 }

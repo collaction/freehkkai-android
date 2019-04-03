@@ -7,11 +7,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import hk.collaction.freehkkai.helper.UtilHelper;
 
 public class C extends UtilHelper {
@@ -54,13 +55,15 @@ public class C extends UtilHelper {
 		return getCurrentFontName(mContext, fontPath);
 	}
 
-	public static String getCurrentFontName(Context mContext, String fontPath) {
+	public static String getCurrentFontName(Context mContext, @Nullable String fontPath) {
 		String[] fontVersionArray = mContext.getResources().getStringArray(R.array.font_version_array);
 		String fontName = fontVersionArray[0];
-		switch (fontPath) {
-			case "fonts/freehkkai_extended.ttf":
-				fontName = fontVersionArray[1];
-				break;
+		if (fontPath != null) {
+			switch (fontPath) {
+				case "fonts/freehkkai_extended.ttf":
+					fontName = fontVersionArray[1];
+					break;
+			}
 		}
 
 		return fontName;
