@@ -49,6 +49,10 @@
         <Preference
             android:key="pref_version"
             android:title="版本編號"/>
+
+        <Preference
+            android:key="pref_privacy"
+            android:title="隱私條款"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

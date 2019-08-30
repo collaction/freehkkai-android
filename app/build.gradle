@@ -10,8 +10,8 @@ android {
         applicationId "hk.collaction.freehkkai"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1191002 // 0 = alpha, 1 = beta, 2 = release
-        versionName "1.0.0"
+        versionCode 1191022 // 0 = alpha, 1 = beta, 2 = release
+        versionName "1.0.2"
         multiDexEnabled true
     }
 
@@ -85,9 +85,9 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 
     // Google Play Services
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.google.firebase:firebase-ads:17.2.0'
-    implementation 'com.google.firebase:firebase-perf:16.2.4'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-ads:17.2.1'
+    implementation 'com.google.firebase:firebase-perf:17.0.0'
 
     // RxBinding Butter Knife
     implementation 'com.jakewharton:butterknife:10.1.0'
@@ -101,7 +101,7 @@ dependencies {
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.2.1'
 
     // Crashlytics
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     // https://github.com/Blankj/AndroidUtilCode
     implementation 'com.blankj:utilcode:1.23.7'

@@ -116,6 +116,16 @@ public class SettingsFragment extends BasePreferenceFragment {
 			}
 		});
 
+		findPreference("pref_privacy").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Uri uri = Uri.parse("https://www.collaction.hk/about/privacy");
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(intent);
+				return false;
+			}
+		});
+
 		prefFontVersion = findPreference("pref_font_version");
 		prefFontVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
