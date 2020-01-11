@@ -1,17 +1,18 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "hk.collaction.freehkkai"
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1191022 // 0 = alpha, 1 = beta, 2 = release
-        versionName "1.0.2"
+        targetSdkVersion 29
+        versionCode 1191102 // 0 = alpha, 1 = beta, 2 = release
+        versionName "1.1.0"
         multiDexEnabled true
     }
 
@@ -20,7 +21,6 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
-            useProguard false
             buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
             buildConfigField "String", "ADMOB_APP_ID", "\"" + getSecretKey("ADMOB_APP_ID") + "\""
             resValue "string", "ADMOB_APP_ID", "\"" + getSecretKey("ADMOB_APP_ID") + "\""
@@ -31,7 +31,6 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
-            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
             buildConfigField "String", "ADMOB_APP_ID", "\"" + getSecretKey("ADMOB_APP_ID") + "\""
@@ -43,7 +42,6 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
-            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ADMOB_BANNER_ID", "\"" + getSecretKey("ADMOB_BANNER_ID") + "\""
             buildConfigField "String", "ADMOB_APP_ID", "\"" + getSecretKey("ADMOB_APP_ID") + "\""
@@ -77,24 +75,20 @@ static def getSecretKey(name) {
 dependencies {
     // Google Android Support
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0'
 
     // Calligraphy
-    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
 
     // Google Play Services
-    implementation 'com.google.firebase:firebase-core:16.0.9'
-    implementation 'com.google.firebase:firebase-ads:17.2.1'
-    implementation 'com.google.firebase:firebase-perf:17.0.0'
-
-    // RxBinding Butter Knife
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.google.firebase:firebase-core:17.2.1'
+    implementation 'com.google.firebase:firebase-ads:18.3.0'
 
     // Material Dialog
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
 
     // Keyboard Visibility Event
     // https://github.com/yshrsmz/KeyboardVisibilityEvent
@@ -104,10 +98,15 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     // https://github.com/Blankj/AndroidUtilCode
-    implementation 'com.blankj:utilcode:1.23.7'
+    implementation 'com.blankj:utilcode:1.26.0'
 
     // https://github.com/javiersantos/AppUpdater
     implementation 'com.github.javiersantos:AppUpdater:2.7'
+    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}

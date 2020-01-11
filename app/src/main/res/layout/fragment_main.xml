@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,7 +44,7 @@
                     android:contentDescription="播放語言"
                     android:paddingStart="0dp"
                     android:paddingEnd="4dp"
-                    android:src="@drawable/baseline_volume_up_black_18"/>
+                    android:src="@drawable/baseline_volume_up_black_18" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/titleTv"
@@ -55,7 +54,7 @@
                     android:text="自由香港楷書顯示字樣"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    tools:ignore="MissingPrefix"/>
+                    tools:ignore="MissingPrefix" />
 
             </LinearLayout>
 
@@ -68,14 +67,14 @@
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:text="歡迎試打自由香港楷書\n告 房 電 滋 妙"
                 android:textColor="@color/black"
-                android:textSize="32sp"/>
+                android:textSize="32sp" />
         </LinearLayout>
     </ScrollView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/primary"/>
+        android:background="@color/primary" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,21 +92,21 @@
                 android:id="@+id/fontSizeIncreaseBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:padding="8dp"
                 android:text="字體 +"
                 android:textSize="14sp"
-                android:theme="@style/MainButton"/>
+                android:theme="@style/MainButton" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fontSizeDecreaseBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:padding="8dp"
                 android:text="字體 -"
                 android:textSize="14sp"
-                android:theme="@style/MainButton"/>
+                android:theme="@style/MainButton" />
         </LinearLayout>
 
         <LinearLayout
@@ -119,115 +118,115 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/fontSizeToggleBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:contentDescription="調整字體"
-                        android:src="@drawable/baseline_text_fields_black_24"/>
+                        android:src="@drawable/baseline_text_fields_black_24" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="調整字體"
                         android:textColor="@color/black"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/screenCapBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:contentDescription="分享截圖"
-                        android:src="@drawable/baseline_mobile_screen_share_black_24"/>
+                        android:src="@drawable/baseline_mobile_screen_share_black_24" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="分享截圖"
                         android:textColor="@color/black"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/speechToTextBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:contentDescription="語音輸入"
-                        android:src="@drawable/baseline_keyboard_voice_black_24"/>
+                        android:src="@drawable/baseline_keyboard_voice_black_24" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="語音輸入"
                         android:textColor="@color/black"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/helpBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:contentDescription="設定"
-                        android:src="@drawable/baseline_settings_black_24"/>
+                        android:src="@drawable/baseline_settings_black_24" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="設定"
                         android:textColor="@color/black"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -248,7 +247,7 @@
                 android:inputType="textMultiLine"
                 android:maxLines="4"
                 android:minLines="1"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
