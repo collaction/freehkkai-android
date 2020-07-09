@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -15,8 +14,8 @@ import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.blankj.utilcode.util.AppUtils
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.PREF_FONT_VERSION
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.getCurrentFontName
+import hk.collaction.freehkkai.helper.UtilHelper.PREF_FONT_VERSION
+import hk.collaction.freehkkai.helper.UtilHelper.getCurrentFontName
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -24,10 +23,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_general)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         /* Set version */
         val prefVersion = findPreference<Preference>("pref_version")

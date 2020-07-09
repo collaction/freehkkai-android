@@ -3,13 +3,14 @@ package hk.collaction.freehkkai.ui.activity
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
-import androidx.appcompat.app.ActionBar
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdView
 import hk.collaction.freehkkai.R
 import hk.collaction.freehkkai.helper.UtilHelper
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.detectLanguage
+import hk.collaction.freehkkai.helper.UtilHelper.detectLanguage
 import kotlinx.android.synthetic.main.activity_container_adview.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -27,67 +28,57 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    protected fun initActionBar(ab: ActionBar?, title: String?, subtitle: String? = null): ActionBar? {
-        if (ab != null) {
-            ab.elevation = 100f
-            ab.setDisplayHomeAsUpEnabled(true)
-            ab.setHomeButtonEnabled(true)
-            ab.title = title
-            if (subtitle != null) {
-                ab.subtitle = subtitle
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return ab
     }
 
-    protected fun initActionBar(ab: ActionBar?, titleId: Int, subtitleId: Int = 0): ActionBar? {
-        if (ab != null) {
-            ab.elevation = 100f
+    protected fun initActionBar(
+            toolbar: Toolbar,
+            titleString: String? = null, subtitleString: String? = null,
+            @StringRes titleId: Int? = null, @StringRes subtitleId: Int? = null
+    ) {
+        setSupportActionBar(toolbar)
+        supportActionBar?.let { ab ->
             ab.setDisplayHomeAsUpEnabled(true)
             ab.setHomeButtonEnabled(true)
-            ab.setTitle(titleId)
-            if (subtitleId != 0) {
+            titleString?.let {
+                ab.title = titleString
+            }
+            titleId?.let {
+                ab.setTitle(titleId)
+            }
+            subtitleString?.let {
+                ab.subtitle = subtitleString
+            }
+            subtitleId?.let {
                 ab.setSubtitle(subtitleId)
             }
         }
-        return ab
     }
 
-    fun setActionBarTitle(titleId: Int) {
-        val ab = supportActionBar
-        ab?.setTitle(titleId)
+    public override fun onDestroy() {
+        adView?.removeAllViews()
+        adView?.destroy()
+        super.onDestroy()
     }
 
-    fun setActionBarTitle(title: String?) {
-        val ab = supportActionBar
-        if (ab != null) {
-            ab.title = title
+    fun initFragment(fragment: Fragment?, titleString: String?, titleId: Int?) {
+        fragment?.let {
+            setContentView(R.layout.activity_container_adview)
+            initActionBar(toolbar, titleString = titleString, titleId = titleId)
+
+            Handler().postDelayed({
+                adView = UtilHelper.initAdView(this, adLayout, isAdViewPreserveSpace)
+            }, UtilHelper.DELAY_AD_LAYOUT)
+
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit()
         }
-    }
-
-    companion object {
-        const val DELAY_AD_LAYOUT = 100
-    }
-
-    fun initFragment(fragment: Fragment, title: String) {
-        setContentView(R.layout.activity_container_adview)
-        setSupportActionBar(toolbar)
-        initActionBar(supportActionBar, title)
-
-        Handler().postDelayed({
-            adView = UtilHelper.initAdView(this, adLayout, isAdViewPreserveSpace)
-        }, DELAY_AD_LAYOUT.toLong())
-
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit()
     }
 }

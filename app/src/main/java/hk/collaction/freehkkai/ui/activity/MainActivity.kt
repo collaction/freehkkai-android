@@ -1,5 +1,6 @@
 package hk.collaction.freehkkai.ui.activity
 
+import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,6 +14,11 @@ class MainActivity : BaseFragmentActivity() {
     override var fragment: Fragment? = MainFragment()
     override var titleId: Int? = R.string.app_name
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {

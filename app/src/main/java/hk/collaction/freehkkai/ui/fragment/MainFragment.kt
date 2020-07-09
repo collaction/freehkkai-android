@@ -29,16 +29,16 @@ import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.blankj.utilcode.util.ConvertUtils
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
-import hk.collaction.freehkkai.Environment
+import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.PREF_FONT_VERSION
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.PREF_FONT_VERSION_ALERT
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.getBitmapFromView
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.getCurrentFontName
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.getFontID
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.openErrorPermissionDialog
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.saveImage
-import hk.collaction.freehkkai.helper.UtilHelper.Companion.snackbar
+import hk.collaction.freehkkai.helper.UtilHelper.PREF_FONT_VERSION
+import hk.collaction.freehkkai.helper.UtilHelper.PREF_FONT_VERSION_ALERT
+import hk.collaction.freehkkai.helper.UtilHelper.getBitmapFromView
+import hk.collaction.freehkkai.helper.UtilHelper.getCurrentFontName
+import hk.collaction.freehkkai.helper.UtilHelper.getFontID
+import hk.collaction.freehkkai.helper.UtilHelper.openErrorPermissionDialog
+import hk.collaction.freehkkai.helper.UtilHelper.saveImage
+import hk.collaction.freehkkai.helper.UtilHelper.snackbar
 import hk.collaction.freehkkai.ui.activity.SettingsActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -55,8 +55,10 @@ class MainFragment : BaseFragment() {
     private var isFirst = true
     private var isTTSReady = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -64,12 +66,14 @@ class MainFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         AppUpdater(context)
-                .showEvery(4)
-                .setDisplay(Display.NOTIFICATION)
-                .start()
+            .showEvery(4)
+            .setDisplay(Display.NOTIFICATION)
+            .start()
 
         updateFontPath()
-        tts = TextToSpeech(context, OnInitListener { status -> isTTSReady = status == TextToSpeech.SUCCESS })
+        tts = TextToSpeech(
+            context,
+            OnInitListener { status -> isTTSReady = status == TextToSpeech.SUCCESS })
         inputEt.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun beforeTextChanged(s: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
@@ -83,7 +87,7 @@ class MainFragment : BaseFragment() {
                 else -> View.VISIBLE
             }
         }
-        if (Environment.CONFIG.isBeta()) {
+        if (BuildConfig.IS_BETA) {
             resultTv.text = "（測試人員版本）\n" + resultTv!!.text
         }
 
@@ -118,7 +122,10 @@ class MainFragment : BaseFragment() {
 
         speechToTextBtn.setOnClickListener {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
             //		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
             intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 10)
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "請說出你的句子")
@@ -148,7 +155,11 @@ class MainFragment : BaseFragment() {
     private fun onClickScreenCap() {
         hideKeyboard()
         activity?.let { activity ->
-            if (ContextCompat.checkSelfPermission(activity, PERMISSION_NAME) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    activity,
+                    PERMISSION_NAME
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 try {
                     snackbar(view, "截圖中⋯⋯")?.show()
                     // Capture the layout rather then over screen
@@ -181,8 +192,10 @@ class MainFragment : BaseFragment() {
 
     private fun onClickHelp() {
         hideKeyboard()
-        val intent = Intent().setClass(context!!, SettingsActivity::class.java)
-        startActivityForResult(intent, REQUEST_SETTINGS)
+        context?.let { context ->
+            val intent = Intent().setClass(context, SettingsActivity::class.java)
+            startActivityForResult(intent, REQUEST_SETTINGS)
+        }
     }
 
     private fun onClickTTS() {
@@ -209,14 +222,21 @@ class MainFragment : BaseFragment() {
 
     private fun hideKeyboard() {
         activity?.let { activity ->
-            val inputManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputManager =
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-            inputManager.hideSoftInputFromWindow(activity.currentFocus?.windowToken,
-                    InputMethodManager.HIDE_NOT_ALWAYS)
+            inputManager.hideSoftInputFromWindow(
+                activity.currentFocus?.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -251,18 +271,21 @@ class MainFragment : BaseFragment() {
                 context?.let { context ->
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     MaterialDialog(context)
-                            .title(text = "請選擇句子")
-                            .listItemsSingleChoice(items = result, waitForPositiveButton = false) { dialog, _, text ->
-                                if (isFirst) {
-                                    isFirst = false
-                                    inputEt.setText(text.toString())
-                                } else {
-                                    inputEt.setText(inputEt.text.toString() + " " + text.toString())
-                                }
-                                dialog.dismiss()
+                        .title(text = "請選擇句子")
+                        .listItemsSingleChoice(
+                            items = result,
+                            waitForPositiveButton = false
+                        ) { dialog, _, text ->
+                            if (isFirst) {
+                                isFirst = false
+                                inputEt.setText(text.toString())
+                            } else {
+                                inputEt.setText(inputEt.text.toString() + " " + text.toString())
                             }
-                            .negativeButton(text = "取消")
-                            .show()
+                            dialog.dismiss()
+                        }
+                        .negativeButton(text = "取消")
+                        .show()
                 }
             }
         }
