@@ -1,9 +1,9 @@
-package hk.collaction.freehkkai.ui.activity
+package hk.collaction.freehkkai.ui.base
 
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import hk.collaction.freehkkai.helper.UtilHelper.detectLanguage
+import hk.collaction.freehkkai.util.Utils.detectLanguage
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**

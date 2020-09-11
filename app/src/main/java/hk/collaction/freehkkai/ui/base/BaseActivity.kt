@@ -1,4 +1,4 @@
-package hk.collaction.freehkkai.ui.activity
+package hk.collaction.freehkkai.ui.base
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,8 +9,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdView
 import hk.collaction.freehkkai.R
-import hk.collaction.freehkkai.helper.UtilHelper
-import hk.collaction.freehkkai.helper.UtilHelper.detectLanguage
+import hk.collaction.freehkkai.util.Utils
+import hk.collaction.freehkkai.util.Utils.detectLanguage
 import kotlinx.android.synthetic.main.activity_container_adview.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -72,9 +72,9 @@ abstract class BaseActivity : AppCompatActivity() {
             setContentView(R.layout.activity_container_adview)
             initActionBar(toolbar, titleString = titleString, titleId = titleId)
 
-            Handler().postDelayed({
-                adView = UtilHelper.initAdView(this, adLayout, isAdViewPreserveSpace)
-            }, UtilHelper.DELAY_AD_LAYOUT)
+            Handler(mainLooper).postDelayed({
+                adView = Utils.initAdView(this, adLayout, isAdViewPreserveSpace)
+            }, Utils.DELAY_AD_LAYOUT)
 
             supportFragmentManager.beginTransaction()
                     .replace(R.id.container, fragment)

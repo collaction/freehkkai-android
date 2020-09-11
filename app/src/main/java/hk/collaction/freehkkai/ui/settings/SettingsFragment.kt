@@ -1,4 +1,4 @@
-package hk.collaction.freehkkai.ui.fragment
+package hk.collaction.freehkkai.ui.settings
 
 import android.app.Activity
 import android.content.Intent
@@ -14,8 +14,8 @@ import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.blankj.utilcode.util.AppUtils
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
-import hk.collaction.freehkkai.helper.UtilHelper.PREF_FONT_VERSION
-import hk.collaction.freehkkai.helper.UtilHelper.getCurrentFontName
+import hk.collaction.freehkkai.util.Utils.PREF_FONT_VERSION
+import hk.collaction.freehkkai.util.Utils.getCurrentFontName
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -43,7 +43,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             false
         }
         findPreference<Preference>("pref_rate")?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            val uri = Uri.parse("market://details?id=" + context!!.packageName)
+            val uri = Uri.parse("market://details?id=" + context?.packageName)
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
             false
@@ -51,7 +51,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("pref_share")?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, "下載「自由香港楷書」程式，就可以查詢支援超過 4700 個香港教育局楷書參考寫法，解決因為「電腦輸入法」而令學生 / 家長 / 教師混淆而寫錯字的問題。\n\n" + "https://play.google.com/store/apps/details?id=" + context!!.packageName)
+            intent.putExtra(Intent.EXTRA_TEXT, "下載「自由香港楷書」程式，就可以查詢支援超過 4700 個香港教育局楷書參考寫法，解決因為「電腦輸入法」而令學生 / 家長 / 教師混淆而寫錯字的問題。\n\n" + "https://play.google.com/store/apps/details?id=" + context?.packageName)
             intent.type = "text/plain"
             startActivity(Intent.createChooser(intent, "分享此程式"))
             false

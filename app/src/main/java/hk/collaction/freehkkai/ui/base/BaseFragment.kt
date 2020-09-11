@@ -1,4 +1,4 @@
-package hk.collaction.freehkkai.ui.fragment
+package hk.collaction.freehkkai.ui.base
 
 import androidx.fragment.app.Fragment
 

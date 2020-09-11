@@ -1,4 +1,4 @@
-package hk.collaction.freehkkai.helper
+package hk.collaction.freehkkai.util
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -34,22 +34,18 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
+import hk.collaction.freehkkai.util.ext.md5
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.math.BigDecimal
-import java.math.BigInteger
-import java.math.MathContext
-import java.math.RoundingMode
-import java.security.MessageDigest
 import java.util.Locale
 
 /**
  * UtilHelper Class
  * Created by Himphen on 10/1/2016.
  */
-object UtilHelper {
+object Utils {
     private const val PREF_IAP = "iap"
     private const val PREF_LANGUAGE = "PREF_LANGUAGE"
     private const val PREF_LANGUAGE_COUNTRY = "PREF_LANGUAGE_COUNTRY"
@@ -345,14 +341,5 @@ object UtilHelper {
         val androidId =
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         return androidId.md5().toUpperCase(Locale.getDefault())
-    }
-}
-
-fun String.md5(): String {
-    return try {
-        val md = MessageDigest.getInstance("MD5")
-        BigInteger(1, md.digest(toByteArray())).toString(16).padStart(32, '0')
-    } catch (e: Exception) {
-        ""
     }
 }

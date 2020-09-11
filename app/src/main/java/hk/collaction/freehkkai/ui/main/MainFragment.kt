@@ -1,4 +1,4 @@
-package hk.collaction.freehkkai.ui.fragment
+package hk.collaction.freehkkai.ui.main
 
 import android.Manifest
 import android.app.Activity
@@ -8,11 +8,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
-import android.speech.tts.TextToSpeech.OnInitListener
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
@@ -31,15 +29,16 @@ import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
-import hk.collaction.freehkkai.helper.UtilHelper.PREF_FONT_VERSION
-import hk.collaction.freehkkai.helper.UtilHelper.PREF_FONT_VERSION_ALERT
-import hk.collaction.freehkkai.helper.UtilHelper.getBitmapFromView
-import hk.collaction.freehkkai.helper.UtilHelper.getCurrentFontName
-import hk.collaction.freehkkai.helper.UtilHelper.getFontID
-import hk.collaction.freehkkai.helper.UtilHelper.openErrorPermissionDialog
-import hk.collaction.freehkkai.helper.UtilHelper.saveImage
-import hk.collaction.freehkkai.helper.UtilHelper.snackbar
-import hk.collaction.freehkkai.ui.activity.SettingsActivity
+import hk.collaction.freehkkai.ui.base.BaseFragment
+import hk.collaction.freehkkai.ui.settings.SettingsActivity
+import hk.collaction.freehkkai.util.Utils.PREF_FONT_VERSION
+import hk.collaction.freehkkai.util.Utils.PREF_FONT_VERSION_ALERT
+import hk.collaction.freehkkai.util.Utils.getBitmapFromView
+import hk.collaction.freehkkai.util.Utils.getCurrentFontName
+import hk.collaction.freehkkai.util.Utils.getFontID
+import hk.collaction.freehkkai.util.Utils.openErrorPermissionDialog
+import hk.collaction.freehkkai.util.Utils.saveImage
+import hk.collaction.freehkkai.util.Utils.snackbar
 import kotlinx.android.synthetic.main.fragment_main.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.util.Locale
@@ -71,9 +70,7 @@ class MainFragment : BaseFragment() {
             .start()
 
         updateFontPath()
-        tts = TextToSpeech(
-            context,
-            OnInitListener { status -> isTTSReady = status == TextToSpeech.SUCCESS })
+        tts = TextToSpeech(context) { status -> isTTSReady = status == TextToSpeech.SUCCESS }
         inputEt.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun beforeTextChanged(s: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
@@ -88,7 +85,7 @@ class MainFragment : BaseFragment() {
             }
         }
         if (BuildConfig.IS_BETA) {
-            resultTv.text = "（測試人員版本）\n" + resultTv!!.text
+            resultTv.text = "（測試人員版本）\n" + resultTv.text
         }
 
         scrollView.setOnClickListener {
@@ -208,12 +205,7 @@ class MainFragment : BaseFragment() {
                 startActivity(installIntent)
             } else {
                 tts.language = yueHKLocale
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    tts.speak(resultTv.text, TextToSpeech.QUEUE_FLUSH, null, null)
-                } else {
-                    @Suppress("DEPRECATION")
-                    tts.speak(resultTv.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
-                }
+                tts.speak(resultTv.text, TextToSpeech.QUEUE_FLUSH, null, null)
             }
         } else {
             snackbar(view, "此設備不支援文字轉語音輸出")?.show()
