@@ -81,29 +81,23 @@ object Utils {
         return null
     }
 
-    @Suppress("DEPRECATION")
-    fun detectLanguage(context: Context) {
+    fun updateLanguage(context: Context): Context {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        var language = preferences.getString(PREF_LANGUAGE, "") ?: ""
-        var languageCountry = preferences.getString(PREF_LANGUAGE_COUNTRY, "") ?: ""
-        if (language == "") {
-            val locale: Locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Resources.getSystem().configuration.locales[0]
+        val language = preferences.getString(PREF_LANGUAGE, "") ?: ""
+        val languageCountry = preferences.getString(PREF_LANGUAGE_COUNTRY, "") ?: ""
+        if (language.isNotEmpty()) {
+            val config = context.resources.configuration
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                config.setLocale(Locale(language, languageCountry))
             } else {
-                Resources.getSystem().configuration.locale
+                @Suppress("DEPRECATION")
+                config.locale = Locale(language, languageCountry)
             }
-            language = locale.language
-            languageCountry = locale.country
+
+            return context.createConfigurationContext(config)
         }
-        val res = context.resources
-        val conf = res.configuration
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            conf.setLocale(Locale(language, languageCountry))
-        } else {
-            conf.locale = Locale(language, languageCountry)
-        }
-        val dm = res.displayMetrics
-        res.updateConfiguration(conf, dm)
+
+        return context
     }
 
     fun logException(e: Exception) {

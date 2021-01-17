@@ -29,6 +29,7 @@ import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
+import hk.collaction.freehkkai.databinding.FragmentMainBinding
 import hk.collaction.freehkkai.ui.base.BaseFragment
 import hk.collaction.freehkkai.ui.settings.SettingsActivity
 import hk.collaction.freehkkai.util.Utils.PREF_FONT_VERSION
@@ -39,7 +40,7 @@ import hk.collaction.freehkkai.util.Utils.getFontID
 import hk.collaction.freehkkai.util.Utils.openErrorPermissionDialog
 import hk.collaction.freehkkai.util.Utils.saveImage
 import hk.collaction.freehkkai.util.Utils.snackbar
-import kotlinx.android.synthetic.main.fragment_main.*
+import hk.collaction.freehkkai.util.viewBinding
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.util.Locale
 
@@ -47,6 +48,8 @@ import java.util.Locale
  * @author Himphen
  */
 class MainFragment : BaseFragment() {
+
+    private val binding by viewBinding(FragmentMainBinding::bind)
 
     private val sizeChange = 8
     private lateinit var sharedPreferences: SharedPreferences
@@ -71,53 +74,53 @@ class MainFragment : BaseFragment() {
 
         updateFontPath()
         tts = TextToSpeech(context) { status -> isTTSReady = status == TextToSpeech.SUCCESS }
-        inputEt.addTextChangedListener(object : TextWatcher {
+        binding.inputEt.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun beforeTextChanged(s: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun afterTextChanged(s: Editable) {
-                resultTv.text = s.toString()
+                binding.resultTv.text = s.toString()
             }
         })
         KeyboardVisibilityEvent.setEventListener(activity) { isOpen ->
-            buttonContainer.visibility = when {
+            binding.buttonContainer.visibility = when {
                 isOpen -> View.GONE
                 else -> View.VISIBLE
             }
         }
         if (BuildConfig.IS_BETA) {
-            resultTv.text = "（測試人員版本）\n" + resultTv.text
+            binding.resultTv.text = "（測試人員版本）\n" + binding.resultTv.text
         }
 
-        scrollView.setOnClickListener {
+        binding.scrollView.setOnClickListener {
             hideKeyboard()
         }
 
-        fontSizeToggleBtn.setOnClickListener {
-            when (fontSizeContainer.visibility) {
-                View.VISIBLE -> fontSizeContainer.visibility = View.GONE
-                else -> fontSizeContainer.visibility = View.VISIBLE
+        binding.fontSizeToggleBtn.setOnClickListener {
+            when (binding.fontSizeContainer.visibility) {
+                View.VISIBLE -> binding.fontSizeContainer.visibility = View.GONE
+                else -> binding.fontSizeContainer.visibility = View.VISIBLE
             }
         }
 
-        fontSizeIncreaseBtn.setOnClickListener {
-            val size = ConvertUtils.px2sp(resultTv.textSize).toFloat()
+        binding.fontSizeIncreaseBtn.setOnClickListener {
+            val size = ConvertUtils.px2sp(binding.resultTv.textSize).toFloat()
             if (size < 200) {
-                resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size + sizeChange)
+                binding.resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size + sizeChange)
             }
         }
 
-        fontSizeDecreaseBtn.setOnClickListener {
-            val size = ConvertUtils.px2sp(resultTv.textSize).toFloat()
+        binding.fontSizeDecreaseBtn.setOnClickListener {
+            val size = ConvertUtils.px2sp(binding.resultTv.textSize).toFloat()
             if (size > 16) {
-                resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size - sizeChange)
+                binding.resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size - sizeChange)
             }
         }
 
-        screenCapBtn.setOnClickListener {
+        binding.screenCapBtn.setOnClickListener {
             onClickScreenCap()
         }
 
-        speechToTextBtn.setOnClickListener {
+        binding.speechToTextBtn.setOnClickListener {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intent.putExtra(
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -133,11 +136,11 @@ class MainFragment : BaseFragment() {
             }
         }
 
-        helpBtn.setOnClickListener {
+        binding.helpBtn.setOnClickListener {
             onClickHelp()
         }
 
-        ttsBtn.setOnClickListener {
+        binding.ttsBtn.setOnClickListener {
             onClickTTS()
         }
     }
@@ -161,7 +164,7 @@ class MainFragment : BaseFragment() {
                     snackbar(view, "截圖中⋯⋯")?.show()
                     // Capture the layout rather then over screen
                     // context.getWindow().getDecorView().getRootView();
-                    getBitmapFromView(activity, llView) { bitmap ->
+                    getBitmapFromView(activity, binding.llView) { bitmap ->
                         onGotScreenBitmap(bitmap)
                     }
                 } catch (e: Exception) {
@@ -205,7 +208,7 @@ class MainFragment : BaseFragment() {
                 startActivity(installIntent)
             } else {
                 tts.language = yueHKLocale
-                tts.speak(resultTv.text, TextToSpeech.QUEUE_FLUSH, null, null)
+                tts.speak(binding.resultTv.text, TextToSpeech.QUEUE_FLUSH, null, null)
             }
         } else {
             snackbar(view, "此設備不支援文字轉語音輸出")?.show()
@@ -243,7 +246,7 @@ class MainFragment : BaseFragment() {
         context?.let { context ->
             val fontVersion = sharedPreferences.getString(PREF_FONT_VERSION, "4700")
 
-            resultTv.typeface = ResourcesCompat.getFont(context, getFontID(fontVersion))
+            binding.resultTv.typeface = ResourcesCompat.getFont(context, getFontID(fontVersion))
 
             val fontName: String = getCurrentFontName(context, fontVersion)
             val isShowAlert = sharedPreferences.getBoolean(PREF_FONT_VERSION_ALERT, true)
@@ -270,9 +273,9 @@ class MainFragment : BaseFragment() {
                         ) { dialog, _, text ->
                             if (isFirst) {
                                 isFirst = false
-                                inputEt.setText(text.toString())
+                                binding.inputEt.setText(text.toString())
                             } else {
-                                inputEt.setText(inputEt.text.toString() + " " + text.toString())
+                                binding.inputEt.setText(binding.inputEt.text.toString() + " " + text.toString())
                             }
                             dialog.dismiss()
                         }

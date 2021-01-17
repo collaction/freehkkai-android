@@ -8,6 +8,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import hk.collaction.freehkkai.BuildConfig
@@ -19,13 +21,8 @@ import java.util.ArrayList
  */
 class App : Application() {
 
-    companion object {
-        lateinit var context: Context
-    }
-
     override fun onCreate() {
         super.onCreate()
-        context = applicationContext
 
         // init logger
         Logger.addLogAdapter(object : AndroidLogAdapter() {
@@ -74,9 +71,8 @@ class App : Application() {
         }
 
         if (isGooglePlay || BuildConfig.DEBUG) {
-            val crashlytics = FirebaseCrashlytics.getInstance()
-            crashlytics.setCrashlyticsCollectionEnabled(true)
-            crashlytics.setCustomKey("isGooglePlay", isGooglePlay)
+            Firebase.crashlytics.setCrashlyticsCollectionEnabled(true)
+            Firebase.crashlytics.setCustomKey("isGooglePlay", isGooglePlay)
         }
     }
 }
