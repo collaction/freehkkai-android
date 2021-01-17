@@ -42,7 +42,9 @@ import hk.collaction.freehkkai.util.Utils.saveImage
 import hk.collaction.freehkkai.util.Utils.snackbar
 import hk.collaction.freehkkai.util.viewBinding
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import java.util.Locale
+
 
 /**
  * @author Himphen
@@ -81,12 +83,24 @@ class MainFragment : BaseFragment() {
                 binding.resultTv.text = s.toString()
             }
         })
-        KeyboardVisibilityEvent.setEventListener(activity) { isOpen ->
-            binding.buttonContainer.visibility = when {
-                isOpen -> View.GONE
-                else -> View.VISIBLE
-            }
+
+        activity?.let { activity ->
+            KeyboardVisibilityEvent.setEventListener(
+                activity,
+                viewLifecycleOwner,
+                object : KeyboardVisibilityEventListener {
+                    override fun onVisibilityChanged(isOpen: Boolean) {
+                        if (activity.isFinishing) return
+
+                        binding.buttonContainer.visibility = when {
+                            isOpen -> View.GONE
+                            else -> View.VISIBLE
+                        }
+                    }
+                }
+            )
         }
+
         if (BuildConfig.IS_BETA) {
             binding.resultTv.text = "（測試人員版本）\n" + binding.resultTv.text
         }

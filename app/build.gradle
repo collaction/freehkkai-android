@@ -16,8 +16,8 @@ android {
         applicationId "hk.collaction.freehkkai"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1211312 // 0 = alpha, 1 = beta, 2 = release
-        versionName "1.3.1"
+        versionCode 1211322 // 0 = alpha, 1 = beta, 2 = release
+        versionName "1.3.2"
     }
 
     buildTypes {
@@ -97,7 +97,7 @@ dependencies {
 
     // Keyboard Visibility Event
     // https://github.com/yshrsmz/KeyboardVisibilityEvent
-    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.2.1'
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
 
     // https://github.com/Blankj/AndroidUtilCode
     implementation 'com.blankj:utilcode:1.29.0'
