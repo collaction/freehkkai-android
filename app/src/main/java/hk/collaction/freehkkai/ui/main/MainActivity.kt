@@ -5,15 +5,17 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import hk.collaction.freehkkai.R
+import hk.collaction.freehkkai.databinding.ActivityContainerAdviewBinding
 import hk.collaction.freehkkai.ui.base.BaseFragmentActivity
 
 
-class MainActivity : BaseFragmentActivity() {
+class MainActivity : BaseFragmentActivity<ActivityContainerAdviewBinding>() {
+    override fun getActivityViewBinding() = ActivityContainerAdviewBinding.inflate(layoutInflater)
+
     private var doubleBackToExitPressedOnce = false
 
     override var fragment: Fragment? = MainFragment()
     override var titleId: Int? = R.string.app_name
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

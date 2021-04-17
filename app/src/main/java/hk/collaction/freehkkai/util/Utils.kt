@@ -7,13 +7,13 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.PixelCopy
@@ -31,7 +31,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
 import hk.collaction.freehkkai.util.ext.md5
@@ -39,7 +40,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.util.Locale
+import java.util.*
 
 /**
  * UtilHelper Class
@@ -56,10 +57,10 @@ object Utils {
 
     fun initAdView(
         context: Context?,
-        adLayout: RelativeLayout,
+        adLayout: RelativeLayout?,
         isPreserveSpace: Boolean = false
     ): AdView? {
-        if (context == null) return null
+        if (context == null || adLayout == null) return null
 
         if (isPreserveSpace) {
             adLayout.layoutParams.height = SizeUtils.dp2px(50f)
@@ -95,16 +96,24 @@ object Utils {
             }
 
             return context.createConfigurationContext(config)
-        }
+        } else {
+            val config = context.resources.configuration
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                config.setLocale(Locale.getDefault())
+            } else {
+                @Suppress("DEPRECATION")
+                config.locale = Locale.getDefault()
+            }
 
-        return context
+            return context.createConfigurationContext(config)
+        }
     }
 
     fun logException(e: Exception) {
         if (BuildConfig.DEBUG) {
             e.printStackTrace()
         } else {
-            FirebaseCrashlytics.getInstance().recordException(e)
+            Firebase.crashlytics.recordException(e)
         }
     }
 
@@ -207,21 +216,19 @@ object Utils {
     }
 
     fun saveImage(context: Context, bitmap: Bitmap): Uri? {
-        val imagesFolder = File(context.cacheDir, "images")
-        var uri: Uri? = null
         try {
+            val imagesFolder = File(context.cacheDir, "images")
             imagesFolder.mkdirs()
             val file = File(imagesFolder, "shared_image.png")
             val stream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
             stream.flush()
             stream.close()
-            uri = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
-
+            return FileProvider.getUriForFile(context, context.packageName + ".provider", file)
         } catch (e: IOException) {
-            e.printStackTrace()
+            logException(e)
         }
-        return uri
+        return null
     }
 
     fun saveBitmapInPicture(context: Context, bitmap: Bitmap, name: String): Boolean {
@@ -257,7 +264,6 @@ object Utils {
         return result
     }
 
-    @Suppress("DEPRECATION")
     fun getBitmapFromView(activity: Activity, view: View, callback: (Bitmap) -> Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             activity.window?.let { window ->
@@ -284,7 +290,7 @@ object Utils {
                                 )?.show()
                             }
                         },
-                        Handler()
+                        Handler(Looper.getMainLooper())
                     )
                 } catch (e: IllegalArgumentException) {
                     // PixelCopy may throw IllegalArgumentException, make sure to handle it
@@ -293,12 +299,17 @@ object Utils {
                 }
             }
         } else {
-            view.isDrawingCacheEnabled = true
-            val bitmap = Bitmap.createBitmap(view.drawingCache)
-            view.isDrawingCacheEnabled = false
-
-            callback(bitmap)
+            getBitmapFromViewBelowO(view, callback)
         }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun getBitmapFromViewBelowO(view: View, callback: (Bitmap) -> Unit) {
+        view.isDrawingCacheEnabled = true
+        val bitmap = Bitmap.createBitmap(view.drawingCache)
+        view.isDrawingCacheEnabled = false
+
+        callback(bitmap)
     }
 
     @Suppress("SameParameterValue")
