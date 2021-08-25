@@ -26,7 +26,6 @@ import androidx.core.content.FileProvider
 import androidx.preference.PreferenceManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
-import com.blankj.utilcode.util.SizeUtils
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -35,12 +34,13 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
+import hk.collaction.freehkkai.util.ext.dp2px
 import hk.collaction.freehkkai.util.ext.md5
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.util.*
+import java.util.Locale
 
 /**
  * UtilHelper Class
@@ -63,7 +63,7 @@ object Utils {
         if (context == null || adLayout == null) return null
 
         if (isPreserveSpace) {
-            adLayout.layoutParams.height = SizeUtils.dp2px(50f)
+            adLayout.layoutParams.height = 50f.dp2px()
         }
         val defaultPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -345,6 +345,16 @@ object Utils {
     fun getAdMobDeviceID(context: Context): String {
         val androidId =
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        return androidId.md5().toUpperCase(Locale.getDefault())
+        return androidId.md5().uppercase()
+    }
+
+    fun getAppVersionName(context: Context?): String {
+        val packageName = context?.packageName
+        if (packageName.isNullOrEmpty()) return ""
+        return try {
+            context.packageManager.getPackageInfo(packageName, 0)?.versionName ?: ""
+        } catch (e: PackageManager.NameNotFoundException) {
+            ""
+        }
     }
 }

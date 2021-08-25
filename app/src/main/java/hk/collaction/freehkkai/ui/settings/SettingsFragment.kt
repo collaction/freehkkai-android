@@ -11,9 +11,9 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
-import com.blankj.utilcode.util.AppUtils
 import hk.collaction.freehkkai.BuildConfig
 import hk.collaction.freehkkai.R
+import hk.collaction.freehkkai.util.Utils
 import hk.collaction.freehkkai.util.Utils.PREF_FONT_VERSION
 import hk.collaction.freehkkai.util.Utils.getCurrentFontName
 
@@ -27,12 +27,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         /* Set version */
         val prefVersion = findPreference<Preference>("pref_version")
-        prefVersion!!.summary = AppUtils.getAppVersionName()
+        prefVersion!!.summary = Utils.getAppVersionName(context)
         findPreference<Preference>("pref_report")?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(Intent.ACTION_SEND)
             var text = "Android Version: " + Build.VERSION.RELEASE + "\n"
             text += "SDK Level: " + Build.VERSION.SDK_INT.toString() + "\n"
-            text += "Version: " + AppUtils.getAppVersionName() + "\n"
+            text += "Version: " + Utils.getAppVersionName(context) + "\n"
             text += "Brand: " + Build.BRAND + "\n"
             text += "Model: " + Build.MODEL + "\n\n\n"
             intent.type = "message/rfc822"

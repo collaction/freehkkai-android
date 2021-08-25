@@ -5,8 +5,7 @@
 
     <queries>
         <intent>
-            <action
-                android:name="android.intent.action.TTS_SERVICE" />
+            <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
     </queries>
 
@@ -48,6 +47,7 @@
 
         <activity
             android:name=".ui.main.MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Launcher"
             android:windowSoftInputMode="adjustResize|stateVisible|stateAlwaysHidden">

@@ -22,7 +22,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
-import com.blankj.utilcode.util.ConvertUtils
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import hk.collaction.freehkkai.BuildConfig
@@ -36,10 +35,10 @@ import hk.collaction.freehkkai.util.Utils.getCurrentFontName
 import hk.collaction.freehkkai.util.Utils.getFontID
 import hk.collaction.freehkkai.util.Utils.saveImage
 import hk.collaction.freehkkai.util.Utils.snackbar
+import hk.collaction.freehkkai.util.ext.px2sp
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
-import java.util.*
-
+import java.util.Locale
 
 /**
  * @author Himphen
@@ -110,7 +109,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
         viewBinding?.fontSizeIncreaseBtn?.setOnClickListener {
             viewBinding?.let { viewBinding ->
-                val size = ConvertUtils.px2sp(viewBinding.resultTv.textSize).toFloat()
+                val size = viewBinding.resultTv.textSize.px2sp()
                 if (size < 200) {
                     viewBinding.resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size + sizeChange)
                 }
@@ -119,7 +118,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
         viewBinding?.fontSizeDecreaseBtn?.setOnClickListener {
             viewBinding?.let { viewBinding ->
-                val size = ConvertUtils.px2sp(viewBinding.resultTv.textSize).toFloat()
+                val size = viewBinding.resultTv.textSize.px2sp()
                 if (size > 16) {
                     viewBinding.resultTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, size - sizeChange)
                 }

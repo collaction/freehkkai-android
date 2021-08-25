@@ -8,7 +8,6 @@ import hk.collaction.freehkkai.R
 import hk.collaction.freehkkai.databinding.ActivityContainerAdviewBinding
 import hk.collaction.freehkkai.ui.base.BaseFragmentActivity
 
-
 class MainActivity : BaseFragmentActivity<ActivityContainerAdviewBinding>() {
     override fun getActivityViewBinding() = ActivityContainerAdviewBinding.inflate(layoutInflater)
 
