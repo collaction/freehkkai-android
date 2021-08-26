@@ -82,33 +82,6 @@ object Utils {
         return null
     }
 
-    fun updateLanguage(context: Context): Context {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val language = preferences.getString(PREF_LANGUAGE, "") ?: ""
-        val languageCountry = preferences.getString(PREF_LANGUAGE_COUNTRY, "") ?: ""
-        if (language.isNotEmpty()) {
-            val config = context.resources.configuration
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                config.setLocale(Locale(language, languageCountry))
-            } else {
-                @Suppress("DEPRECATION")
-                config.locale = Locale(language, languageCountry)
-            }
-
-            return context.createConfigurationContext(config)
-        } else {
-            val config = context.resources.configuration
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                config.setLocale(Locale.getDefault())
-            } else {
-                @Suppress("DEPRECATION")
-                config.locale = Locale.getDefault()
-            }
-
-            return context.createConfigurationContext(config)
-        }
-    }
-
     fun logException(e: Exception) {
         if (BuildConfig.DEBUG) {
             e.printStackTrace()

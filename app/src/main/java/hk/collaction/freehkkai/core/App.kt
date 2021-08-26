@@ -45,6 +45,7 @@ class App : Application() {
             requestConfiguration.setTestDeviceIds(testDevices)
         }
         MobileAds.setRequestConfiguration(requestConfiguration.build())
+        MobileAds.initialize(this)
     }
 
     private fun initCrashlytics() {

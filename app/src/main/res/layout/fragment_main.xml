@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,15 +9,16 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:background="@color/grey100"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@id/line"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,39 +27,25 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/activity_vertical_margin">
 
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/ttsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
+                android:drawableStart="@drawable/baseline_volume_up_24"
                 android:focusable="true"
+                android:fontFamily="sans-serif-light"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="播放語言"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="4dp"
-                    android:src="@drawable/baseline_volume_up_black_18" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/titleTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="自由香港楷書顯示字樣"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    tools:ignore="MissingPrefix" />
-
-            </LinearLayout>
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="自由香港楷書顯示字樣"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/resultTv"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/resultTv"
@@ -68,26 +56,36 @@
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:text="歡迎試打自由香港楷書\n告 房 電 滋 妙"
                 android:textColor="@color/black"
-                android:textSize="32sp" />
-        </LinearLayout>
-    </ScrollView>
+                android:textSize="32sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ttsBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <View
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/primary" />
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/inputCl"
+        app:layout_constraintTop_toBottomOf="@id/scrollView" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inputCl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fontSizeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fontSizeIncreaseBtn"
@@ -97,147 +95,119 @@
                 android:padding="8dp"
                 android:text="字體 +"
                 android:textSize="14sp"
-                android:theme="@style/MainButton" />
+                android:theme="@style/MainButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fontSizeDecreaseBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fontSizeDecreaseBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:padding="8dp"
                 android:text="字體 -"
                 android:textSize="14sp"
-                android:theme="@style/MainButton" />
-        </LinearLayout>
+                android:theme="@style/MainButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fontSizeIncreaseBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/buttonContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:layout_constraintBottom_toTopOf="@id/inputContainer"
+            app:layout_constraintTop_toBottomOf="@id/fontSizeContainer">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fontSizeToggleBtn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableTop="@drawable/baseline_text_fields_24"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="調整字體"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/screenCapBtn"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/fontSizeToggleBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="8dp">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/screenCapBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableTop="@drawable/baseline_mobile_screen_share_24"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="分享截圖"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/speechToTextBtn"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/fontSizeToggleBtn"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:contentDescription="調整字體"
-                        android:src="@drawable/baseline_text_fields_black_24" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/speechToTextBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableTop="@drawable/outline_mic_24"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="語音輸入"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/helpBtn"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/screenCapBtn"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="調整字體"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/screenCapBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:contentDescription="分享截圖"
-                        android:src="@drawable/baseline_mobile_screen_share_black_24" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="分享截圖"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/speechToTextBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:contentDescription="語音輸入"
-                        android:src="@drawable/baseline_keyboard_voice_black_24" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="語音輸入"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/helpBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:contentDescription="設定"
-                        android:src="@drawable/baseline_settings_black_24" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="設定"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/helpBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableTop="@drawable/baseline_settings_24"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="設定"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/speechToTextBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputContainer"
             style="@style/LargeInputContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonContainer">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputEt"
                 style="@style/EditTextSingleLine"
                 android:layout_width="match_parent"
@@ -250,6 +220,5 @@
                 android:minLines="1"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

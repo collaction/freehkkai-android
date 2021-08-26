@@ -1,6 +1,5 @@
 package hk.collaction.freehkkai.ui.base
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,7 +13,6 @@ import com.google.android.gms.ads.AdView
 import hk.collaction.freehkkai.R
 import hk.collaction.freehkkai.databinding.ActivityContainerAdviewBinding
 import hk.collaction.freehkkai.util.Utils
-import hk.collaction.freehkkai.util.Utils.updateLanguage
 
 /**
  * Created by himphen on 21/5/16.
@@ -32,10 +30,6 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = getActivityViewBinding()
         setContentView(viewBinding.root)
-    }
-
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(updateLanguage(newBase))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

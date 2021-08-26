@@ -17,36 +17,35 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foreground="?android:windowContentOverlay"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:baselineAligned="false"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/line"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/primary"
+            app:layout_constraintBottom_toTopOf="@id/adLayout"
+            app:layout_constraintTop_toBottomOf="@id/container" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/primary" />
-
-            <RelativeLayout
-                android:id="@+id/adLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </LinearLayout>
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/adLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
