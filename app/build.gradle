@@ -16,8 +16,8 @@ android {
         applicationId "hk.collaction.freehkkai"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 1211402 // 0 = alpha, 1 = beta, 2 = release
-        versionName "1.4.0"
+        versionCode 1211412 // 0 = alpha, 1 = beta, 2 = release
+        versionName "1.4.1"
     }
 
     buildTypes {
